@@ -31,7 +31,7 @@ function moviesAverageOfDirector(array, director) {
     return totalScore;
   }, 0);
 
-  average = result / iterations;
+  average = Number((result / iterations).toFixed(2));
   console.log('EXERCICE 3 ->', average);
   return average;
 }
