@@ -23,7 +23,7 @@ function moviesAverageOfDirector(array, director) {
   let average;
 
   let result = array.reduce((totalScore, item) => {
-    if (item.director === director && item.score !== "") {
+    if (item.director === director && item.score !== '') {
       iterations++;
       totalScore += item.score;
     }
@@ -78,7 +78,43 @@ function moviesAverageByCategory(array, category) {
 }
 
 // Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes() {}
+function hoursToMinutes(array) {
+  const conversion = array.map((movie) => {
+    movie.duration = convertinDuration(movie.duration);
+    return movie;
+  });
+
+  const convertedArray = [...conversion];
+
+  console.log('EXERCICE 7 ->', conversion);
+  return convertedArray;
+}
+
+function convertinDuration(duration) {
+  let indexOfH = duration.indexOf('h');
+  let toNumber;
+  let hoursToMinutes;
+  let indexOfMin = duration.indexOf('min');
+  let minutesToNumber;
+  let indexOfSpace = duration.indexOf(' ');
+  let total = 0;
+
+  if (indexOfH > 0 && indexOfMin < 0) {
+    toNumber = Number(duration.slice(0, indexOfH));
+    hoursToMinutes = toNumber * 60;
+    total += hoursToMinutes;
+  } else if (indexOfH > 0 && indexOfSpace > 0) {
+    toNumber = Number(duration.slice(0, indexOfH));
+    hoursToMinutes = toNumber * 60;
+
+    minutesToNumber = Number(duration.slice(indexOfSpace, indexOfMin));
+    total = hoursToMinutes + minutesToNumber;
+  } else {
+    minutesToNumber = Number(duration.slice(indexOfSpace, indexOfMin));
+    total += minutesToNumber;
+  }
+  return total;
+}
 
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear() {}
