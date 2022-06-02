@@ -85,12 +85,10 @@ function hoursToMinutes(array) {
   }
 
   const conversion = result.map((movie) => {
-    movie.duration = convertingDuration(movie.duration);
-    return movie;
+    return { ...movie, duration: convertingDuration(movie.duration) };
   });
 
-  console.log('EXERCICE 7 -> BASE ARRAY IS: ', array);
-  console.log('EXERCICE 7 -> RESULT IS: ', result);
+  console.log('EXERCICE 7 -> converted array IS: ', conversion);
   return conversion;
 }
 
@@ -122,7 +120,21 @@ function convertingDuration(duration) {
 }
 
 // Exercise 8: Get the best film of a year
-function bestFilmOfYear() {}
+function bestFilmOfYear(array, year) {
+  const moviesOfTheSameYear = array.filter((movie) => {
+    if (movie.year === year) {
+      return movie;
+    }
+  });
+
+  const sortedByScore = moviesOfTheSameYear.sort((a, b) => b.score - a.score);
+  const topScore = sortedByScore.slice(0, 1);
+
+  console.log('EXERCICE 8 -> sortedByScore IS: ', sortedByScore);
+  console.log('EXERCICE 8 -> topScore IS: ', topScore);
+
+  return topScore;
+}
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
