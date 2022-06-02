@@ -79,18 +79,22 @@ function moviesAverageByCategory(array, category) {
 
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes(array) {
-  const conversion = array.map((movie) => {
-    movie.duration = convertinDuration(movie.duration);
+  const result = [];
+  for (let movie of array) {
+    result.push(movie);
+  }
+
+  const conversion = result.map((movie) => {
+    movie.duration = convertingDuration(movie.duration);
     return movie;
   });
 
-  const convertedArray = [...conversion];
-
-  console.log('EXERCICE 7 ->', conversion);
-  return convertedArray;
+  console.log('EXERCICE 7 -> BASE ARRAY IS: ', array);
+  console.log('EXERCICE 7 -> RESULT IS: ', result);
+  return conversion;
 }
 
-function convertinDuration(duration) {
+function convertingDuration(duration) {
   let indexOfH = duration.indexOf('h');
   let toNumber;
   let hoursToMinutes;
@@ -113,6 +117,7 @@ function convertinDuration(duration) {
     minutesToNumber = Number(duration.slice(indexOfSpace, indexOfMin));
     total += minutesToNumber;
   }
+
   return total;
 }
 
