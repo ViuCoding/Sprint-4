@@ -1,17 +1,19 @@
 // Exercise 1: Get the array of all directors.
 function getAllDirectors(array) {
-  let result = array.map((director) => director.director);
+  // With array.map we iterate through the array and we return only the director's name. This process automatically fills the new "result" array.
+
+  let result = array.map((movie) => movie.director);
   console.log('EXERCICE 1 ->', result);
   return result;
 }
 
 // Exercise 2: Get the films of a certain director
 function getMoviesFromDirector(array, director) {
-  let result = array.filter((item) => {
-    if (item.director === director) {
-      return item.title;
-    }
-  });
+  // We need to get an array of movies of a certain director (passed as a parameter)
+  // We array.filter we execute a callback function on each item of the array and if the result is true the item goes in the newly "filtered" array.
+  // We simply loop through the array and if the parameter "director" matches one or more items "director" : "value" the item goes into the new array.
+
+  let result = array.filter((movie) => movie.director === director);
 
   console.log('EXERCICE 2 ->', result);
   return result;
@@ -19,20 +21,27 @@ function getMoviesFromDirector(array, director) {
 
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(array, director) {
+  // We will use array.reduce to add up all the scores of the movies of a certain director.
+  // We use the "iterations" variable to keep track of how many entries/movies the given director has so we can later use it to calculate the average score.
+
   let iterations = 0;
   let average;
 
-  let result = array.reduce((totalScore, item) => {
-    if (item.director === director && item.score !== '') {
+  // First we reduce the various scores of a certain director (that we receive as a parameter in the moviesAverageOfDirector function) into a single numerical value.
+  let totalResult = array.reduce((totalScore, movie) => {
+    if (movie.director === director && movie.score !== '') {
       iterations++;
-      totalScore += item.score;
+      totalScore += movie.score;
     }
 
     return totalScore;
-  }, 0);
+  }, 0); // <<-- This "0" here is the starting value of the parameter/variable "totalScore" a.k.a. the accumulator.
 
-  average = Number((result / iterations).toFixed(2));
-  console.log('EXERCICE 3 ->', average);
+
+// We then divide the value of totalResult by the number of iterations/movies to get the average score.
+// We need to convert it with Number() because the .toFixed() method transforms the values into strings.
+  average = Number((totalResult / iterations).toFixed(2));
+  console.log('EXERCICE 3 AVERAGE IS ->', average);
   return average;
 }
 
