@@ -98,11 +98,8 @@ function moviesAverageByCategory(array, category) {
 
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes(array) {
-  // Here we use a different technique to clone an array, with a for...of loop we go through all the elements of the original array and we push it to the new array.
-  const moviesLibrary = [];
-  for (let movie of array) {
-    moviesLibrary.push(movie);
-  }
+  // Clone the original array with map
+  const moviesLibrary = array.map((movie) => movie);
 
   // With array.map we create a different array and we update the duration with the converted value.
   // To convert the string duration into a numerical value we call the function convertingDuration(duration) where we pass the duration as a string and we return a number.
@@ -115,30 +112,43 @@ function hoursToMinutes(array) {
 }
 
 function convertingDuration(duration) {
-  let indexOfH = duration.indexOf('h');
-  let toNumber;
-  let hoursToMinutes;
-  let indexOfMin = duration.indexOf('min');
-  let minutesToNumber;
-  let indexOfSpace = duration.indexOf(' ');
+  const splitDuration = duration.split(' ');
   let total = 0;
+  let hoursToMinutes = parseInt(splitDuration[0]) * 60;
+  let minutesOnly;
 
-  if (indexOfH > 0 && indexOfMin < 0) {
-    toNumber = Number(duration.slice(0, indexOfH));
-    hoursToMinutes = toNumber * 60;
-    total += hoursToMinutes;
-  } else if (indexOfH > 0 && indexOfSpace > 0) {
-    toNumber = Number(duration.slice(0, indexOfH));
-    hoursToMinutes = toNumber * 60;
-
-    minutesToNumber = Number(duration.slice(indexOfSpace, indexOfMin));
-    total = hoursToMinutes + minutesToNumber;
-  } else {
-    minutesToNumber = Number(duration.slice(indexOfSpace, indexOfMin));
-    total += minutesToNumber;
-  }
-
+if(splitDuration.length > 1){
+  minutesOnly = parseInt(splitDuration[1]);
+  total += hoursToMinutes + minutesOnly;
+}else{
+  total += hoursToMinutes;
+}
   return total;
+
+  // let indexOfH = duration.indexOf('h');
+  // let toNumber;
+  // let hoursToMinutes;
+  // let indexOfMin = duration.indexOf('min');
+  // let minutesToNumber;
+  // let indexOfSpace = duration.indexOf(' ');
+  // let total = 0;
+
+  // if (indexOfH > 0 && indexOfMin < 0) {
+  //   toNumber = Number(duration.slice(0, indexOfH));
+  //   hoursToMinutes = toNumber * 60;
+  //   total += hoursToMinutes;
+  // } else if (indexOfH > 0 && indexOfSpace > 0) {
+  //   toNumber = Number(duration.slice(0, indexOfH));
+  //   hoursToMinutes = toNumber * 60;
+
+  //   minutesToNumber = Number(duration.slice(indexOfSpace, indexOfMin));
+  //   total = hoursToMinutes + minutesToNumber;
+  // } else {
+  //   minutesToNumber = Number(duration.slice(indexOfSpace, indexOfMin));
+  //   total += minutesToNumber;
+  // }
+
+  // return total;
 }
 
 // Exercise 8: Get the best film of a year
